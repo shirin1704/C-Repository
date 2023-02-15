@@ -1,0 +1,44 @@
+//program to create a doubly linked list 
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+struct node
+{
+    struct node *prev;
+    int data;
+    struct node *next;
+};
+struct node *p=NULL, *q;
+void main()
+{
+    clrscr();
+    int d, choice;
+    do
+    {
+        if(p==NULL)
+        {
+            p=(struct node*)malloc(sizeof(struct node));
+            p->prev=NULL;
+            q=p;
+        }
+        else
+        {
+            q->next=(struct node*)malloc(sizeof(struct node));
+            q->next->prev=q;
+            q=q->next;
+        }
+        printf("Enter data: ");
+        scanf("%d", &d);
+        q->data=d;
+        printf("Do you wish to add more data?\n");
+        printf("Press 1 for yes and 0 for no.\n");
+        scanf("%d", &choice);
+    }while(choice==1);
+    q=p;
+    while(q!=NULL)
+    {
+        printf("%d\t", q->data);
+        q=q->next;
+    }
+    getch();
+}
