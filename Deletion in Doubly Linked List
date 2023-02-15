@@ -1,0 +1,69 @@
+#include<stdio.h>
+#include<stdlib.h>
+//#include<conio.h>
+struct node
+{
+    struct node *prev;
+    int rollno, marks;
+    struct node *next;
+};
+struct node *p=NULL, *q, *tail, *temp;
+void printList()
+{
+    q=p;
+    printf("Roll No.\tMarks\n");
+    while(q!=NULL)
+    {
+        printf("%d\t\t\t%d\n", q->rollno, q->marks);
+        q=q->next;
+    }
+    q=p;
+}
+void main()
+{
+    //clrscr();
+    int rno, m, choice;
+    do
+    {
+        if(p==NULL)
+        {
+            p=(struct node*)malloc(sizeof(struct node));
+            p->prev=NULL;
+            q=p;
+        }
+        else
+        {
+            q->next=(struct node*)malloc(sizeof(struct node));
+            q->next->prev=q;
+            q=q->next;
+        }
+        printf("Enter roll number: ");
+        scanf("%d", &rno);
+        q->rollno=rno;
+        printf("Enter marks: ");
+        scanf("%d", &m);
+        q->marks=m;
+        q->next=NULL;
+        printf("Do you wish to add more data?\n");
+        printf("Press 1 for yes and 0 for no.\n");
+        scanf("%d", &choice);
+        if(choice!=1)
+        tail=q;
+    }while(choice==1);
+    printf("Last dataset is %d and %d\n", tail->rollno, tail->marks);
+    printList();
+    while(q!=NULL)
+    {
+        temp=q->next;
+        if(temp->next==NULL)
+        {
+            q->next=NULL;
+            free(temp);
+            tail=q;
+        }
+        q=q->next;
+    }
+    printf("Last dataset is %d and %d\n", tail->rollno, tail->marks);
+    printList();
+    //getch();
+}
