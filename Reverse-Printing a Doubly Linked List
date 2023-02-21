@@ -1,0 +1,53 @@
+//program to print Doubly Linked List in reverse order
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+struct node
+{
+ struct node *prev;
+ int data;
+ struct node *next;
+};
+struct node *p=NULL, *q, *tail, *temp;
+void printList()
+{
+ q=tail;
+ while(q!=NULL)
+ {
+ printf("%d\t", q->data);
+ q=q->prev;
+ }
+ q=p;
+}
+void main()
+{
+ clrscr();
+ int d, choice;
+ do
+ {
+ if(p==NULL)
+ {
+ p=(struct node*)malloc(sizeof(struct node));
+ p->prev=NULL;
+ q=p;
+ }
+ else
+ {
+ q->next=(struct node*)malloc(sizeof(struct node));
+ q->next->prev=q;
+ q=q->next;
+ }
+ printf("Enter data: ");
+ scanf("%d", &d);
+ q->data=d;
+ q->next=NULL;
+ printf("Do you wish to add more data?\n");
+ printf("Press 1 for yes and 0 for no.\n");
+ scanf("%d", &choice);
+ if(choice!=1)
+ tail=q;
+ }while(choice==1);
+ printf("The Linked List in reverse order is:\n");
+ printList();
+ getch();
+}
