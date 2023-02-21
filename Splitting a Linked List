@@ -1,0 +1,84 @@
+//program to split a linked list into positive and negative numbers
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *p=NULL, *q, *pos=NULL, *pq, *neg=NULL, *nq, *temp;
+void printList()
+{
+    while(temp!=NULL)
+    {
+        printf("%d\t", temp->data);
+        temp=temp->next;
+    }
+}
+void main()
+{
+    int d, choice;
+    do
+    {
+        if(p==NULL)
+        {
+            p=(struct node*)malloc(sizeof(struct node));
+            q=p;
+        }
+        else
+        {
+            q->next=(struct node*)malloc(sizeof(struct node));
+            q=q->next;
+        }
+        printf("Enter data: ");
+        scanf("%d", &d);
+        q->data=d;
+        q->next=NULL;
+        printf("Press 1 to add more data. Else press 0.\n");
+        scanf("%d", &choice);
+    }while(choice==1);
+    q=p;
+    printf("The Linked List is:\n");
+    temp=p;
+    printList();
+    while(q!=NULL)
+    {
+        if(q->data<0)
+        {
+            if(neg==NULL)
+            {
+                neg=(struct node*)malloc(sizeof(struct node));
+                nq=neg;
+            }
+            else
+            {
+                nq->next=(struct node*)malloc(sizeof(struct node));
+                nq=nq->next;
+            }
+            nq->data=q->data;
+            nq->next=NULL;
+        }
+        else
+        {
+            if(pos==NULL)
+            {
+                pos=(struct node*)malloc(sizeof(struct node));
+                pq=pos;
+            }
+            else
+            {
+                pq->next=(struct node*)malloc(sizeof(struct node));
+                pq=pq->next;
+            }
+            pq->data=q->data;
+            pq->next=NULL;
+        }
+        q=q->next;
+    }
+    printf("\nThe positive Linked List is:\n");
+    temp=pos;
+    printList();
+    printf("\nThe negative Linked List is:\n");
+    temp=neg;
+    printList();
+}
