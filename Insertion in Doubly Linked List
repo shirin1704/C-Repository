@@ -1,0 +1,106 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    struct node *prev;
+    int data;
+    struct node *next;
+};
+struct node *p=NULL, *q, *temp;
+void printList()
+{
+    q=p;
+    while(q!=NULL)
+    {
+        printf("%d\t", q->data);
+        q=q->next;
+    }
+    q=p;
+}
+void beginning()
+{
+    temp->prev=NULL;
+    temp->next=p;
+    p->prev=temp;
+    p=temp;
+}
+void given_pos()
+{
+    int pos, counter=1;
+    printf("Enter the position you wish to add data to: ");
+    scanf("%d", &pos);
+    while(q!=NULL)
+    {
+        if(counter==pos)
+        {
+            temp->prev=q->prev;
+            q->prev->next=temp;
+            temp->next=q;
+            q->prev=temp;
+        }
+        q=q->next;
+        counter++;
+    }
+}
+void end()
+{
+    while(q!=NULL)
+    {
+        if(q->next==NULL)
+        {
+            q->next=temp;
+            temp->prev=q;
+            temp->next=NULL;
+        }
+        q=q->next;
+    }
+}
+void main()
+{
+    int d, choice;
+    do
+    {
+        if(p==NULL)
+        {
+            p=(struct node *)malloc(sizeof(struct node));
+            p->prev=NULL;
+            q=p;
+        }
+        else
+        {
+            q->next=(struct node *)malloc(sizeof(struct node));
+            q=q->next;
+            q->prev=q;
+        }
+        printf("Enter data: ");
+        scanf("%d", &d);
+        q->data=d;
+        q->next=NULL;
+        printf("Press 1 to add more data. Else press 0. ");
+        scanf("%d", &choice);
+    }while(choice==1);
+    printf("The Linked List is:\n");
+    printList();
+    int c;
+    printf("\nWhere do you wish to add another node?\nPress:\n");
+    printf("1. for at the beginning.\n2. for at a given position.\n3. for at the end.\n");
+    scanf("%d", &c);
+    printf("Enter the data you wish to insert: ");
+    scanf("%d", &d);
+    temp=(struct node *)malloc(sizeof(struct node));
+    temp->data=d;
+    q=p;
+    switch(c)
+    {
+        case 1: beginning();
+                break;
+        case 2: given_pos();
+                break;
+        case 3: end();
+                break;
+        default: printf("Invalid input. Please try again.\n");
+    }
+    q=p;
+    printf("The updated list is:\n");
+    printList();
+}
