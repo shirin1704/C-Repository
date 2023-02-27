@@ -1,0 +1,152 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct poly
+{
+    int coeff;
+    int exp;
+    struct poly *next;
+};
+struct poly *poly1_head=NULL, *poly1, *poly2_head, *poly2, *res_head=NULL, *res, *temp;
+void printPoly()
+{
+    printf("The Polynomial is:\n");
+    printf("%dx^%d", temp->coeff, temp->exp);
+    temp=temp->next;
+    while(temp!=NULL)
+    {
+        if(temp->coeff<0)
+        {
+            if(temp->exp==0)
+            printf(" - %d", 0-(temp->coeff));
+            else if(temp->exp==1)
+            printf(" - %dx", 0-(temp->coeff));
+            else
+            printf(" - %dx^%d", 0-(temp->coeff), temp->exp);
+        }
+        else
+        {
+            if(temp->exp==0)
+            printf(" + %d", temp->coeff);
+            else if(temp->exp==1)
+            printf(" + %dx", temp->coeff);
+            else
+            printf(" + %dx^%d", temp->coeff, temp->exp);
+        }
+        temp=temp->next;
+    }
+    printf("\n");
+}
+void main()
+{
+    int coef, ex, choice;
+    printf("For Polynomial 1: \n");
+    do
+    {
+        if(poly1_head==NULL)
+        {
+            poly1_head=(struct poly*)malloc(sizeof(struct poly));
+            poly1=poly1_head;
+        }
+        else
+        {
+            poly1->next=(struct poly*)malloc(sizeof(struct poly));
+            poly1=poly1->next;
+        }
+        printf("Enter the coefficient: ");
+        scanf("%d", &coef);
+        poly1->coeff=coef;
+        printf("Enter the exponent: ");
+        scanf("%d", &ex);
+        poly1->exp=ex;
+        poly1->next=NULL;
+        printf("Do you wish to add another term?\n");
+        printf("Press 1 for yes. Else press 0. ");
+        scanf("%d", &choice);
+    }while(choice==1);
+    temp=poly1_head;
+    printPoly();
+    printf("For Polynomial 2: \n");
+    do
+    {
+        if(poly2_head==NULL)
+        {
+            poly2_head=(struct poly*)malloc(sizeof(struct poly));
+            poly2=poly2_head;
+        }
+        else
+        {
+            poly2->next=(struct poly*)malloc(sizeof(struct poly));
+            poly2=poly2->next;
+        }
+        printf("Enter the coefficient: ");
+        scanf("%d", &coef);
+        poly2->coeff=coef;
+        printf("Enter the exponent: ");
+        scanf("%d", &ex);
+        poly2->exp=ex;
+        poly2->next=NULL;
+        printf("Do you wish to add another term?\n");
+        printf("Press 1 for yes. Else press 0. ");
+        scanf("%d", &choice);
+    }while(choice==1);
+    temp=poly2_head;
+    printPoly();
+    poly1=poly1_head;
+    poly2=poly2_head;
+    while(poly1!=NULL)
+    {
+        if(res_head==NULL)
+        {
+            res_head=(struct poly *)malloc(sizeof(struct poly));
+            res=res_head;
+        }
+        else
+        {
+            res->next=(struct poly *)malloc(sizeof(struct poly));
+            res=res->next;
+        }
+        if(poly2==NULL)
+        {
+            res->coeff=poly1->coeff;
+            res->exp=poly1->exp;
+            poly1=poly1->next;
+        }
+        else if(poly1->exp==poly2->exp)
+        {
+            res->coeff=poly1->coeff+poly2->coeff;
+            res->exp=poly2->exp;
+            poly1=poly1->next;
+            poly2=poly2->next;
+        }
+        else if(poly1->exp<poly2->exp)
+        {
+            res->coeff=poly2->coeff;
+            res->exp=poly2->exp;
+            poly2=poly2->next;
+        }
+        else 
+        {
+            res->coeff=poly1->coeff;
+            res->exp=poly1->exp;
+            poly1=poly1->next;
+        }
+        res->next=NULL;
+    }
+    if(poly2!=NULL)
+    {
+        while(poly2!=NULL)
+        {
+            res->next=(struct poly *)malloc(sizeof(struct poly));
+            res=res->next;
+            res->coeff=poly2->coeff;
+            res->exp=poly2->exp;
+            poly2=poly2->next;
+        }
+    }
+    poly1=poly1_head;
+    poly2=poly2_head;
+    res=res_head;
+    printf("Result:\n");
+    temp=res_head;
+    printPoly();
+}
