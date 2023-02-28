@@ -1,0 +1,76 @@
+//dynamic stack
+#include<stdio.h>
+#include<stdlib.h>
+struct stack
+{
+    int data;
+    struct stack *next;
+};
+struct stack *head=NULL, *node, *temp;
+void push(int d)
+{
+    temp=(struct stack*)malloc(sizeof(struct stack));
+    temp->data=d;
+    temp->next=NULL;
+    if(head==NULL)
+    {
+        head=temp;
+        node=head;
+    }
+    else
+    {
+        node=temp;
+        node->next=head;
+        head=temp;
+    }
+}
+void pop()
+{
+    if(head==NULL)
+    printf("The stack is empty.\n");
+    else
+    {
+        temp=head;
+        head=head->next;
+        free(temp);
+    }
+}
+void printStack()
+{
+    node=head;
+    while(node!=NULL)
+    {
+        printf("%d\t", node->data);
+        node=node->next;
+    }
+    printf("\n");
+    node=head;
+}
+void main()
+{
+    int d, choice=1, c1;
+    do
+    {
+        printf("What operation do you wish to perform? Press:\n");
+        printf("1. to push data\n");
+        printf("2. to pop data\n");
+        printf("3. to print the stack\n");
+        printf("4. to exit\n");
+        scanf("%d", &c1);
+        switch(c1)
+        {
+            case 1: printf("Enter data: ");
+                    scanf("%d", &d);
+                    push(d);
+                    break;
+            case 2: pop();
+                    break;
+            case 3: printStack();
+                    break;
+            case 4: choice=0;
+                    printf("End of switch case.\n");
+                    break;
+            default:printf("Invalid input. Please try again\n");
+        }
+    }while(choice==1);
+}
