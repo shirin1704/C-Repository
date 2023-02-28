@@ -13,16 +13,17 @@ void sortPoly()
     while(head!=NULL)
     {
         temp2=head->next;
+        swap=(struct poly*)malloc(sizeof(struct poly));
         while(temp2!=NULL)
         {
             if(head->exp<temp2->exp)
             {
-                swap=temp2->coeff;
-                swap=temp2->exp;
+                swap->coeff=temp2->coeff;
+                swap->exp=temp2->exp;
                 temp2->coeff=head->coeff;
                 temp2->exp=head->exp;
-                head->coeff=swap;
-                head->exp=swap;
+                head->coeff=swap->coeff;
+                head->exp=swap->exp;
             }
             temp2=temp2->next;
         }
@@ -89,7 +90,6 @@ void main()
     printPoly();
     poly1=poly1_head;
     head=poly1_head;
-    //temp2=poly1;
     sortPoly();
     temp=poly1_head;
     printPoly();
