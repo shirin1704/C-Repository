@@ -1,0 +1,97 @@
+//sorting a polynomial
+#include<stdio.h>
+#include<stdlib.h>
+struct poly
+{
+    int coeff;
+    int exp;
+    struct poly *next;
+};
+struct poly *poly1_head=NULL, *poly1, *poly2_head, *poly2, *res_head=NULL, *res, *head, *temp, *temp2, *swap;
+void sortPoly()
+{
+    while(head!=NULL)
+    {
+        temp2=head->next;
+        while(temp2!=NULL)
+        {
+            if(head->exp<temp2->exp)
+            {
+                swap=temp2->coeff;
+                swap=temp2->exp;
+                temp2->coeff=head->coeff;
+                temp2->exp=head->exp;
+                head->coeff=swap;
+                head->exp=swap;
+            }
+            temp2=temp2->next;
+        }
+        head=head->next;
+    }
+}
+void printPoly()
+{
+    printf("The Polynomial is:\n");
+    printf("%dx^%d", temp->coeff, temp->exp);
+    temp=temp->next;
+    while(temp!=NULL)
+    {
+        if(temp->coeff<0)
+        {
+            if(temp->exp==0)
+            printf(" - %d", 0-(temp->coeff));
+            else if(temp->exp==1)
+            printf(" - %dx", 0-(temp->coeff));
+            else
+            printf(" - %dx^%d", 0-(temp->coeff), temp->exp);
+        }
+        else
+        {
+            if(temp->exp==0)
+            printf(" + %d", temp->coeff);
+            else if(temp->exp==1)
+            printf(" + %dx", temp->coeff);
+            else
+            printf(" + %dx^%d", temp->coeff, temp->exp);
+        }
+        temp=temp->next;
+    }
+    printf("\n");
+}
+void main()
+{
+    int coef, ex, choice;
+    printf("For Polynomial 1: \n");
+    do
+    {
+        if(poly1_head==NULL)
+        {
+            poly1_head=(struct poly*)malloc(sizeof(struct poly));
+            poly1=poly1_head;
+        }
+        else
+        {
+            poly1->next=(struct poly*)malloc(sizeof(struct poly));
+            poly1=poly1->next;
+        }
+        printf("Enter the coefficient: ");
+        scanf("%d", &coef);
+        poly1->coeff=coef;
+        printf("Enter the exponent: ");
+        scanf("%d", &ex);
+        poly1->exp=ex;
+        poly1->next=NULL;
+        printf("Do you wish to add another term?\n");
+        printf("Press 1 for yes. Else press 0. ");
+        scanf("%d", &choice);
+    }while(choice==1);
+    temp=poly1_head;
+    printPoly();
+    poly1=poly1_head;
+    head=poly1_head;
+    //temp2=poly1;
+    sortPoly();
+    temp=poly1_head;
+    printPoly();
+    poly1=poly1_head;
+}
