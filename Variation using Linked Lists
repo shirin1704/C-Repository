@@ -1,0 +1,78 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *p=NULL, *q, *temp, *sort, *temp1;
+int len=0;
+float mean=0;
+float variance=0;
+float sd=0;
+void printList()
+{
+    q=p;
+    while(q!=NULL)
+    {
+        printf("%d\t", q->data);
+        q=q->next;
+    }
+    printf("\n");
+    q=p;
+}
+void arithmetic_mean()
+{
+    q=p;
+    while(q!=NULL)
+    {
+        mean=mean+q->data;
+        q=q->next;
+    }
+    q=p;
+    mean=mean/len;
+    printf("Mean of the data set is: %.2f\n", mean);
+}
+void Variance()
+{
+    q=p;
+    float term=0;
+    while(q!=NULL)
+    {
+        term=q->data-mean;
+        variance=variance+(term*term);
+        q=q->next;
+    }
+    q=p;
+    variance=variance/len;
+    printf("Variance of the data set is: %.2f\n", variance);
+}
+void main()
+{
+    int d, choice;
+    do
+    {
+        len++;
+        if(p==NULL)
+        {
+            p=(struct node*)malloc(sizeof(struct node));
+            q=p;
+        }
+        else
+        {
+            q->next=(struct node*)malloc(sizeof(struct node));
+            q=q->next;
+        }
+        printf("Enter data: ");
+        scanf("%d", &d);
+        q->data=d;
+        q->next=NULL;
+        printf("Press 0 to exit: ");
+        scanf("%d", &choice);
+    }while(choice!=0);
+    printList();
+    arithmetic_mean();
+    Variance();
+    printf("Standard Deviation of the data set is: %.2f\n", sqrt(variance));
+}
