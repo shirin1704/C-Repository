@@ -1,0 +1,132 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *p=NULL, *q, *temp, *sort, *temp1;
+int len=0;
+void printList()
+{
+    q=p;
+    while(q!=NULL)
+    {
+        printf("%d\t", q->data);
+        q=q->next;
+    }
+    printf("\n");
+    q=p;
+}
+void sortList()
+{
+    q=p;
+    while(q!=NULL)
+    {
+        temp=q->next;
+        while(temp!=NULL)
+        {
+            if(q->data>temp->data)
+            {
+                sort=q->data;
+                q->data=temp->data;
+                temp->data=sort;
+            }
+            temp=temp->next;
+        }
+        q=q->next;
+    }
+    q=p;
+}
+void arithmetic_mean()
+{
+    float mean=0;
+    q=p;
+    while(q!=NULL)
+    {
+        mean=mean+q->data;
+        q=q->next;
+    }
+    q=p;
+    mean=mean/len;
+    printf("Mean of the data is: %f\n", mean);
+}
+void median()
+{
+    int c=1, pos=0;
+    float median;
+    if(len%2==0)
+    pos=len/2;
+    else
+    pos=(len+1)/2;
+    q=p;
+    while(q!=NULL)
+    {
+        if(c==pos)
+        {
+            median=q->data;
+            break;
+        }
+        c++;
+        q=q->next;
+    }
+    if(len%2==0)
+    median=(median+q->next->data)/2;
+    printf("Median of the data is: %f\n", median);
+    q=p;
+}
+void mode()
+{
+    int mode=0, mode1=0, mode2=0;
+    q=p;
+    while(q!=NULL)
+    {
+        temp1=q;
+        mode1=0;
+        while(temp1!=NULL)
+        {
+            if(temp1->data==q->data)
+            mode1++;
+            temp1=temp1->next;
+        }
+        if(mode1>mode2)
+        {
+            mode2=mode1;
+            mode=q->data;
+        }
+        q=q->next;
+    }
+    printf("Mode of the data is: %d\n", mode);
+    q=p;
+}
+void main()
+{
+    int d, choice;
+    do
+    {
+        len++;
+        if(p==NULL)
+        {
+            p=(struct node*)malloc(sizeof(struct node));
+            q=p;
+        }
+        else
+        {
+            q->next=(struct node*)malloc(sizeof(struct node));
+            q=q->next;
+        }
+        printf("Enter data: ");
+        scanf("%d", &d);
+        q->data=d;
+        q->next=NULL;
+        printf("Press 0 to exit: ");
+        scanf("%d", &choice);
+    }while(choice!=0);
+    printList();
+    sortList();
+    printf("The Sorted List is:\n");
+    printList();
+    arithmetic_mean();
+    median();
+    mode();
+}
