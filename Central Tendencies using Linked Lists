@@ -49,7 +49,7 @@ void arithmetic_mean()
     }
     q=p;
     mean=mean/len;
-    printf("Mean of the data is: %f\n", mean);
+    printf("Mean of the data is: %.2f\n", mean);
 }
 void median()
 {
@@ -72,7 +72,7 @@ void median()
     }
     if(len%2==0)
     median=(median+q->next->data)/2;
-    printf("Median of the data is: %f\n", median);
+    printf("Median of the data is: %.2f\n", median);
     q=p;
 }
 void mode()
