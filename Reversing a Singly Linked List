@@ -1,0 +1,71 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head=NULL, *q, *rhead=NULL, *rq, *temp;
+void printList()
+{
+    while(temp!=NULL)
+    {
+        printf("%d\t", temp->data);
+        temp=temp->next;
+    }
+    printf("\n");
+}
+void revList()
+{
+    q=head;
+    while(q!=NULL)
+    {
+        temp=q;
+        if(rhead==NULL)
+        {
+            rhead=(struct node*)malloc(sizeof(struct node));
+            rhead->data=temp->data;
+            rhead->next=NULL;
+        }
+        else
+        {
+            rq=(struct node*)malloc(sizeof(struct node));
+            rq->data=temp->data;
+            rq->next=rhead;
+            rhead=rq;
+        }
+        q=q->next;
+    }
+    q=head;
+}
+void main()
+{
+    int d, choice;
+    do
+    {
+        if(head==NULL)
+        {
+            head=(struct node*)malloc(sizeof(struct node));
+            q=head;
+        }
+        else
+        {
+            q->next=(struct node*)malloc(sizeof(struct node));
+            q=q->next;
+        }
+        printf("Enter data: ");
+        scanf("%d", &d);
+        q->data=d;
+        q->next=NULL;
+        printf("Press 1 to continue: ");
+        scanf("%d", &choice);
+    }while(choice!=0);
+    q=head;
+    printf("The List is:\n");
+    temp=head;
+    printList();
+    revList();
+    printf("The List in reverse is:\n");
+    temp=rhead;
+    printList();
+}
