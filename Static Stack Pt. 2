@@ -1,0 +1,51 @@
+#include<stdio.h>
+int top=-1, n=5, stack[5];
+void push()
+{
+    int data;
+    if(top==n-1)
+        printf("Stack overflow. Cannot add elements.\n");
+    else
+    {
+        printf("Enter data: ");
+        scanf("%d", &data);
+        top++;
+        stack[top]=data;
+    }
+}
+void pop()
+{
+    if(top<0)
+        printf("Stack underflow. No element to remove.\n");
+    else
+        top--;
+}
+void display()
+{
+    for(int i=top; i>=0; i--)
+        printf("%d\t", stack[i]);
+    printf("\n");
+}
+void main()
+{
+    int choice, exit=0;
+    while(exit==0)
+    {
+        printf("What operation do you wish to perform?\n");
+        printf("1. to add element\n2. to remove element\n3. to display stack\n4. to exit\n");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1: push();
+                    break;
+            case 2: pop();
+                    break;
+            case 3: display();
+                    break;
+            case 4: exit=1;
+                    break;
+            default:printf("Please try again.\n");
+        }
+    }
+    printf("Goodbye.");
+}
