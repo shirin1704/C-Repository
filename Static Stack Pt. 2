@@ -19,7 +19,7 @@ void pop()
         printf("Stack underflow. No element to remove.\n");
     else
     {
-        printf("Deleting the element: %d", stack[top]);
+        printf("Deleting the element: %d\n", stack[top]);
         top--;
     }
 }
