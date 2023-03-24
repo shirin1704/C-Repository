@@ -1,0 +1,70 @@
+//implement stack using doubly linked list
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    struct node *prev;
+    int data;
+    struct node *next;
+};
+struct node *head=NULL, *q;
+void push()
+{
+    int d;
+    printf("Enter data: ");
+    scanf("%d", &d);
+    q=(struct node*)malloc(sizeof(struct node));
+    q->prev=NULL;
+    q->data=d;
+    q->next=head;
+    head=q;
+}
+void pop()
+{
+    if(head==NULL)
+    printf("Stack underflow.\n");
+    else
+    {
+        printf("Popped element: %d", head->data);
+        if(head->next==NULL)
+        head=NULL;
+        else
+        head=head->next;
+    }
+}
+void print()
+{
+    q=head;
+    printf("The stack is: \n");
+    while(q!=NULL)
+    {
+        printf("%d\t", q->data);
+        q=q->next;
+    }
+    printf("\n");
+}
+void main()
+{
+    int choice, exit=0;
+    printf("Press:\n");
+    printf("1. to push data.\n2. to pop data.\n3. to print stack.\n4. to exit");
+    do
+    {
+        printf("\nEnter choice of operation: ");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1: push();
+                    break;
+            case 2: pop();
+                    break;
+            case 3: print();
+                    break;
+            case 4: exit=1;
+                    break;
+            default:printf("Please try again.");
+        }
+    }while(exit==0);
+    if(exit==1)
+    printf("Goodbye.");
+}
