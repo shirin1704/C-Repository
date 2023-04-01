@@ -1,0 +1,26 @@
+#include<stdio.h>
+#include<math.h>
+void main()
+{
+    int n, n1;
+    printf("Enter a number: ");
+    scanf("%d", &n);
+    int len=log10(n)+1;
+    int size=len*4;
+    int binary[size];
+    n1=n;
+    int top=-1;
+    while(n1>0)
+    {
+        top++;
+        if(n1%2==0)
+        binary[top]=0;
+        else
+        binary[top]=1;
+        n1=n1/2;
+    }
+    printf("Binary of %d is ", n);
+    for(int i=top; i>=0; i--)
+    printf("%d", binary[i]);
+    printf(".\nUgh.");
+}
