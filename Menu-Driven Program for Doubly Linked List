@@ -1,0 +1,189 @@
+//menu-driven program for operations on doubly linked list
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    struct node *prev;
+    int data;
+    struct node *next;
+};
+struct node *p=NULL, *q, *last, *temp;
+void inserting()
+{
+    int choice, d;
+    printf("Enter the data you want to insert: ");
+    scanf("%d", &d);
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=d;
+    printf("Where do you wish to insert the node:\n");
+    printf("1. at the beginning\n2. at a given position\n3. at the end\n");
+    printf("Enter choice: ");
+    scanf("%d", &choice);
+    switch(choice)
+    {
+        case 1: temp->prev=NULL;
+                temp->next=p;
+                p->prev=temp;
+                p=temp;
+                break;
+        case 2: printf("Enter the position: ");
+                int pos, c=1;
+                scanf("%d", &pos);
+                while(q!=NULL)
+                {
+                    if(c==pos)
+                    {
+                        temp->prev=q->prev;
+                        q->prev->next=temp;
+                        temp->next=q;
+                        q->prev=temp;
+                    }
+                    q=q->next;
+                    c++;
+                }
+                break;
+        case 3: while(q!=NULL)
+                {
+                    if(q==last)
+                    {
+                        last->next=temp;
+                        temp->prev=last;
+                        temp->next=NULL;
+                        last=temp;
+                    }
+                    q=q->next;
+                }
+                break;
+        default:printf("Please try again.\n");
+    }
+    printf("Node inserted.\n");
+}
+void deleting()
+{
+    int choice;
+    printf("Which node do you wish to delete: \n");
+    printf("1. at the beginning\n2. at a given position\n3. at the end\n");
+    printf("Enter choice: ");
+    scanf("%d", &choice);
+    switch(choice)
+    {
+        case 1: temp=p;
+                p=p->next;
+                p->prev=NULL;
+                break;
+        case 2: printf("Enter the position: ");
+                int pos, c=1;
+                scanf("%d", &pos);
+                while(q!=NULL)
+                {
+                    if(c+1==pos)
+                    {
+                        temp=q->next;
+                        q->next->prev=q;
+                        q->next=temp->next;
+                    }
+                    q=q->next;
+                    c++;
+                }
+                break;
+        case 3: while(q!=NULL)
+                {
+                    temp=q->next;
+                    if(temp->next==NULL)
+                    {
+                        q->next=NULL;
+                        last=q;
+                    }
+                    q=q->next;
+                }
+                break;
+        default:printf("Please try again.\n");
+    }
+    free(temp);
+    printf("Node deleted.\n");
+}
+void searching()
+{
+    int target, flag=0, pos=1;
+    printf("Enter the element you want to search for: ");
+    scanf("%d", &target);
+    while(q!=NULL)
+    {
+        if(q->data==target)
+        {
+            flag=1;
+            break;
+        }
+        pos++;
+        q=q->next;
+    }
+    if(flag==1)
+    printf("Element %d found at position %d.", target, pos);
+    else
+    printf("Element not found.");
+    printf("\n");
+}
+void printing()
+{
+    printf("The List is:\n");
+    while(q!=NULL)
+    {
+        printf("%d\t", q->data);
+        q=q->next;
+    }
+    printf("\n");
+}
+void main()
+{
+    int d, choice;
+    do
+    {
+        if(p==NULL)
+        {
+            p=(struct node*)malloc(sizeof(struct node));
+            p->prev=NULL;
+            q=p;
+        }
+        else
+        {
+            q->next=(struct node*)malloc(sizeof(struct node));
+            q->next->prev=q;
+            q=q->next;
+        }
+        printf("Enter the data: ");
+        scanf("%d", &d);
+        q->data=d;
+        q->next=NULL;
+        printf("Press 1 to add more data: ");
+        scanf("%d", &choice);
+    }while(choice==1);
+    last=(struct node*)malloc(sizeof(struct node));
+    last=q;
+    q=p;
+    printing();
+    q=p;
+    int c, exit=0;
+    printf("Which operation do you wish to perform? Press:\n");
+    printf("1. To insert a node\n2. To delete a node\n3. To search for an element\n4. To print the list\n5. To exit\n");
+    while(exit==0)
+    {
+        printf("Enter choice of operation: ");
+        scanf("%d", &c);
+        switch(c)
+        {
+            case 1:inserting();
+                    break;
+            case 2:deleting();
+                    break;
+            case 3:searching();
+                    break;
+            case 4:printing();
+                    break;
+            case 5:exit=1;
+                    break;
+            default:printf("Please try again.\n");
+        }
+        q=p;
+    }
+    printf("End of program.");
+}
