@@ -1,0 +1,28 @@
+//program to reverse string using stack
+#include<stdio.h>
+#include<string.h>
+int max=20, top=-1;
+char reverse[20]; 
+void push(char letter)
+{
+    if(top==max-1)
+    printf("Stack overflow.");
+    else
+    {
+        top++;
+        reverse[top]=letter;
+    }
+}
+void main()
+{
+    char string[20];
+    printf("Enter a word: ");
+    gets(string);
+    int len=strlen(string), i;
+    for(i=0; i<len; i++)
+    push(string[i]);
+    printf("Reverse of %s is ", string);
+    for(int i=top; i>=0; i--)
+    printf("%c", reverse[i]);
+    printf(".");
+}
