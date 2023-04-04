@@ -1,0 +1,84 @@
+//program to split a singly linked list into odd and even numbers
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *p=NULL, *q, *even=NULL, *eq, *odd=NULL, *oq, *temp;
+void printList()
+{
+    while(temp!=NULL)
+    {
+        printf("%d\t", temp->data);
+        temp=temp->next;
+    }
+}
+void main()
+{
+    int d, choice;
+    do
+    {
+        if(p==NULL)
+        {
+            p=(struct node*)malloc(sizeof(struct node));
+            q=p;
+        }
+        else
+        {
+            q->next=(struct node*)malloc(sizeof(struct node));
+            q=q->next;
+        }
+        printf("Enter data: ");
+        scanf("%d", &d);
+        q->data=d;
+        q->next=NULL;
+        printf("Press 1 to add more data. Else press 0.\n");
+        scanf("%d", &choice);
+    }while(choice==1);
+    q=p;
+    printf("The Linked List is:\n");
+    temp=p;
+    printList();
+    while(q!=NULL)
+    {
+        if(q->data%2==1)
+        {
+            if(odd==NULL)
+            {
+                odd=(struct node*)malloc(sizeof(struct node));
+                oq=odd;
+            }
+            else
+            {
+                oq->next=(struct node*)malloc(sizeof(struct node));
+                oq=oq->next;
+            }
+            oq->data=q->data;
+            oq->next=NULL;
+        }
+        else
+        {
+            if(even==NULL)
+            {
+                even=(struct node*)malloc(sizeof(struct node));
+                eq=even;
+            }
+            else
+            {
+                eq->next=(struct node*)malloc(sizeof(struct node));
+                eq=eq->next;
+            }
+            eq->data=q->data;
+            eq->next=NULL;
+        }
+        q=q->next;
+    }
+    printf("\nThe even Linked List is:\n");
+    temp=even;
+    printList();
+    printf("\nThe odd Linked List is:\n");
+    temp=odd;
+    printList();
+}
