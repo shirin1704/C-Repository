@@ -1,0 +1,26 @@
+#include<stdio.h>
+void main(){
+printf("Enter number of elements: ");
+int n, i;
+scanf("%d", &n);
+int arr[n];
+printf("Enter array elements:\n");
+for(i=0; i<n; i++)
+scanf("%d", &arr[i]);
+printf("Original array:\n");
+for(i=0; i<n; i++)
+printf("%d\t", arr[i]);
+int c=n/2, temp, j=0, k=n-1;
+while(c>0)
+{
+    temp=arr[j];
+    arr[j]=arr[k];
+    arr[k]=temp;
+    j++;
+    k--;
+    c--;
+}
+printf("\nReversed array:\n");
+for(i=0; i<n; i++)
+printf("%d\t", arr[i]);
+}
