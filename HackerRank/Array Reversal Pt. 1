@@ -12,12 +12,12 @@ int main()
 int c=num/2, temp, k=0, j=num-1;
 while(c>0)
 {
-       temp=*(arr+k);
-       *(arr+k)=*(arr+j);
-       *(arr+j)=temp;
-       k++;
-       j--;
-       c--;
+     temp=*(arr+k);
+     *(arr+k)=*(arr+j);
+     *(arr+j)=temp;
+     k++;
+     j--;
+     c--;
 }
 for(i = 0; i < num; i++)
 printf("%d ", *(arr + i));
